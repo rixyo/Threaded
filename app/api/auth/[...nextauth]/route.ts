@@ -3,8 +3,9 @@ import NextAuth,{AuthOptions} from 'next-auth';
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-
 import prisma from "@/app/libs/prismadb"
+
+
 
 export const authOptions:AuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -12,6 +13,8 @@ export const authOptions:AuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+            
+            
         }),
         CredentialsProvider({
             name: "Credentials",
@@ -29,7 +32,7 @@ export const authOptions:AuthOptions = {
                     }
                 })
                 if(!user|| !user.hashedPassword){
-                    throw new Error("User not found")
+                    throw new Error("You are not registered")
                 }
                 const isCorrectPassword = await bcrypt.compare(
                     credentials.password,
@@ -42,11 +45,40 @@ export const authOptions:AuthOptions = {
             },
         })
     ],
+    callbacks: {
+        async signIn({ user}) {
+            // here update oauth user with custom tag
+          if (user?.email) {
+            const userExists = await prisma.user.findUnique({
+                where: {
+                    email: user.email as string
+                }
+
+            })
+            if(userExists){
+                const username=user?.email?.split("@")[0]
+        const customTag=`@${username.replace(/\W+/g, "_")}`
+                await prisma.user.update({
+                    where:{
+                        id:userExists.id
+                    },
+                    data:{
+                        customTag
+                    }
+                })
+            }
+            return Promise.resolve(true); 
+          } else {
+            return Promise.reject(new Error('You are not allowed to sign in.'))
+          }
+        },
+      },
     debug: process.env.NODE_ENV === 'development',
   session: {
     strategy: "jwt",
+    maxAge: 3600
   },
-  secret: process.env.NEXT_AUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
    
 }
 

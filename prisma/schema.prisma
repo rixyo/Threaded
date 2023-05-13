@@ -11,6 +11,7 @@ model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String?
   email String? @unique 
+  emailVerified   DateTime?
  numberVerified Boolean @default(false)
   customTag String? @unique
   bio String?
@@ -21,12 +22,11 @@ model User {
   isVarified Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  deletedAt DateTime?
   followerId String[]  @db.ObjectId
   followingId String [] @db.ObjectId
   hasNotifications Boolean @default(false)
   isActived Boolean @default(true)
-  notifications Notification[]
+ 
 
   conversationIds String[] @db.ObjectId
   conversations Conversation[] @relation(fields: [conversationIds], references: [id])
@@ -40,21 +40,6 @@ model User {
 
 }
 
-
-
-
-
-model Notification {
-  id                 String @id @default(auto()) @map("_id") @db.ObjectId
-  body               String
-  userId             String @db.ObjectId
-  createdAt          DateTime @default(now())
-  fromId             String @db.ObjectId          
-  type               String
-  link               String
-  isRead             Boolean @default(false)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
 model SearchQuery {
   id                 String @id @default(auto()) @map("_id") @db.ObjectId
   query              String

@@ -1,7 +1,7 @@
 "use client"
 import Button from '@/app/components/Inputs/Button';
 import Input from '@/app/components/Inputs/Input';
-import React,{useCallback, useState} from 'react';
+import React,{useCallback, useEffect, useState} from 'react';
 import {useForm,FieldValues,SubmitHandler} from 'react-hook-form'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { BsGoogle  } from 'react-icons/bs';
@@ -17,7 +17,17 @@ const AuthForm:React.FC = () => {
     const [passwordType, setPasswordType] = useState<string>("password")
     const [customError,setError]=useState<string>("")
     const router = useRouter()
+    const session = useSession()
 
+    useEffect(()=>{
+      if(session?.status==="authenticated"){
+        router.push("/users")
+      }
+      else if(session?.status!="unauthenticated") {
+        router.push("/")
+      }
+    },[session?.status,router])
+  //toggle variant
     const toggleVariant = useCallback(() => {
         if(variant === "Login"){
             setVariant("Register")
@@ -25,7 +35,7 @@ const AuthForm:React.FC = () => {
             setVariant("Login")
         }
     },[variant,setVariant])
-    const emailRegex=/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+    //form
     const {register,handleSubmit,formState:{errors}}=useForm<FieldValues>({
         defaultValues:{
             email:"",
@@ -33,6 +43,7 @@ const AuthForm:React.FC = () => {
             password:""
         }
     })
+    //register/login
     const onSubmit:SubmitHandler<FieldValues> = (data) => {
 
     
@@ -50,7 +61,7 @@ const AuthForm:React.FC = () => {
   
           else if (callback?.ok) {
 
-            router.push('/conversations')
+            router.push("/users")
           
           }
         })
@@ -119,12 +130,11 @@ const AuthForm:React.FC = () => {
     
             if (callback?.ok) {
               toast.success("Account Created Successfully")
-              router.push('/conversations')
+              router.push("/users")
             }
           })
           .catch((error:any) => {
-            console.log(error.response.data)
-            toast.error(error.response.data);
+            toast.error(error.message)
           })
           
           .finally(() => setIsLoading(false))
@@ -141,7 +151,8 @@ const AuthForm:React.FC = () => {
              
          }
     }
-    const togglePassword=useCallback(()=>{
+    //show password
+    const showPassword=useCallback(()=>{
    
         if(passwordType==="password")
         {
@@ -150,7 +161,24 @@ const AuthForm:React.FC = () => {
         }
         setPasswordType("password")
       },[passwordType,setPasswordType])
-      const socialAction =(action:string) => {}
+      //social login
+      const socialAction = (action:string) => {
+        setIsLoading(true);
+    
+        signIn(action, { redirect: false })
+          .then((callback) => {
+            if (callback?.error) {
+              toast.error(callback?.error);
+            }
+    
+            else if (callback?.ok) {
+              toast.success("Logged in")
+
+              router.push('/users')
+            }
+          })
+          .finally(() => setIsLoading(false));
+      } 
     
     return (
         <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'> 
@@ -175,6 +203,7 @@ const AuthForm:React.FC = () => {
                     required
                     disabled={isLoading}
                     errors={errors}
+                    
                     />
                     <div className='relative'>
                     <Input
@@ -188,7 +217,7 @@ const AuthForm:React.FC = () => {
                     
                     />
                        {customError && <p className='text-red-500 text-sm my-2' >{customError}</p>}
-                      <div className='absolute -right-7 top-10 gap-2' onClick={togglePassword}>{passwordType==="password"?<AiOutlineEye className='text-2xl text-gray-400'/>:<AiOutlineEyeInvisible className='text-2xl text-gray-400'/>}</div>
+                      <div className='absolute -right-7 top-10  ' onClick={showPassword}>{passwordType==="password"?<AiOutlineEye className='text-2xl text-gray-400'/>:<AiOutlineEyeInvisible className='text-2xl text-gray-400'/>}</div>
                     </div>
                     <div>
             <Button disabled={isLoading} fullWidth type="submit">
@@ -211,7 +240,7 @@ const AuthForm:React.FC = () => {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="bg-white px-2 text-gray-500">
-                Or continue with
+                Or
               </span>
             </div>
           </div>
@@ -219,7 +248,7 @@ const AuthForm:React.FC = () => {
           <div className="mt-6 flex gap-2">
             <AuthSocialButton
               icon={BsGoogle}
-              onClick={() => socialAction('google')} 
+              onClick={() => socialAction("google")}
 
 
             />
