@@ -1,7 +1,7 @@
 // Date Created: 13/05/2020, 7:09:00 PM
 import React from 'react';
 import getCurrentUser from '../action/getCurrentUser';
-import EmptyState from '../components/Inputs/EmptyState';
+import EmptyState from '../components/EmptyState';
 
 type pageProps = {
     

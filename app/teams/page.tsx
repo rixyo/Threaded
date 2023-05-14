@@ -1,5 +1,5 @@
 import React from 'react';
-import EmptyState from '../components/Inputs/EmptyState';
+import EmptyState from '../components/EmptyState';
 
 type TeamsProps = {
     

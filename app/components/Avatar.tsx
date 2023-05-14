@@ -7,7 +7,7 @@ type AvatarProps = {
 };
 
 const Avatar:React.FC<AvatarProps> = ({user}) => {
-  
+
  
 
   return (
@@ -24,7 +24,7 @@ const Avatar:React.FC<AvatarProps> = ({user}) => {
       ">
         <Image
           fill
-          src={user?.image ||"/random.jpg" }
+          src={user?.profileImage ||"/random.jpg" }
           alt="Avatar"
         />
       </div>
