@@ -7,13 +7,13 @@ import {MdOutlineGroupAdd} from "react-icons/md"
 import ConversationBox from './ConversationBox';
 
 type ConversationListProps = {
-    conversations:FullConversationType[]
+  initialItems:FullConversationType[]
 
     
 };
 
-const ConversationList:React.FC<ConversationListProps> = ({conversations}) => {
-    const [item,setItem]=useState(conversations)
+const ConversationList:React.FC<ConversationListProps> = ({ initialItems}) => {
+    const [item,setItem]=useState( initialItems)
     const { conversationId, isOpen } = useConversation();
     
     return (
@@ -49,7 +49,7 @@ const ConversationList:React.FC<ConversationListProps> = ({conversations}) => {
               <MdOutlineGroupAdd size={20} />
             </div>
           </div>
-          {conversations.map((conversastion) => (
+          { initialItems.map((conversastion) => (
             <ConversationBox
               key={conversastion.id}
               conversation={conversastion}

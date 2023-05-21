@@ -3,7 +3,7 @@ import prisma from "@/app/libs/prismadb"
 
 const getConversations=async()=>{
     const currentUser=await getCurrentUser()
-    if(!currentUser) return []
+    if(!currentUser?.id) return []
     try {
         const conversations=await prisma.conversation.findMany({
             where:{

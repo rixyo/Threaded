@@ -1,4 +1,4 @@
-import getConversations from "../action/getConversation";
+import getConversations from "../action/getConversations";
 import Sidebar from "../components/sidebar/Sidebar";
 import ConversationList from "./components/ConversationList";
 
@@ -9,7 +9,7 @@ export default async function ConversationLayout({children}: {children: React.Re
         <Sidebar>
 
         <div className='h-full'>
-            <ConversationList conversations={conversations}/>
+            <ConversationList  initialItems={conversations}/>
             {children}
         </div>
         </Sidebar>
