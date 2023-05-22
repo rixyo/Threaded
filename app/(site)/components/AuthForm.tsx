@@ -62,6 +62,7 @@ const AuthForm:React.FC = () => {
           else if (callback?.ok) {
 
             router.push("/users")
+            toast.success("Logged in");
           
           }
         })
@@ -129,7 +130,7 @@ const AuthForm:React.FC = () => {
             }
     
             if (callback?.ok) {
-              toast.success("Account Created Successfully")
+              toast.success("Account Created")
               router.push("/users")
             }
           })
@@ -148,7 +149,6 @@ const AuthForm:React.FC = () => {
           
         
            
-             
          }
     }
     //show password

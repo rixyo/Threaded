@@ -4,11 +4,9 @@ import clsx from "clsx"
 import useConversation from "../hooks/useConversation"
 import EmptyState from "../components/EmptyState"
 
-type pageProps = {
-    
-};
 
-const Home:React.FC<pageProps> = () => {
+
+const Home:React.FC= () => {
     const {isOpen}=useConversation()
 
     

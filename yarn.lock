@@ -14,6 +14,38 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
+"@cloudinary-util/url-loader@^3.5.1":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@cloudinary-util/url-loader/-/url-loader-3.6.1.tgz#522656f6a40407e512be58e3d0e04b292c582c44"
+  integrity sha512-VxyJ1PhkDMhGay9Z8kdFlNwD13cGQdW+GoW0dj67FRHG5Csl9h6qeizPw/bWsDj9lBcRVZGBlLKEwDECXQAukg==
+  dependencies:
+    "@cloudinary-util/util" "2.0.1"
+    "@cloudinary/url-gen" "^1.8.7"
+
+"@cloudinary-util/util@2.0.1", "@cloudinary-util/util@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@cloudinary-util/util/-/util-2.0.1.tgz#0797d2dd96f91971184b2f94da768c15922ea33d"
+  integrity sha512-d2imgUjYTLjv8ZhZPMAts/uPbMvIE71X4I/5hwdY/7vM4BuFQoJMSyq+h2pW1z1MyGG9BOWBm70vp082lSrbEQ==
+
+"@cloudinary/transformation-builder-sdk@^1.2.7":
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/@cloudinary/transformation-builder-sdk/-/transformation-builder-sdk-1.2.8.tgz#afd5b3205b9a43b9a3887daa512dbcf173111970"
+  integrity sha512-Rxvt/tjzTNzHDvH2l5ZLky/ahp60pHf51uLfzkFA/Mrh6Uj8aMHne0TRbYvpaH4t8l9wLGcdK6SbBqKVzlN16A==
+  dependencies:
+    "@cloudinary/url-gen" "^1.7.0"
+
+"@cloudinary/url-gen@^1.7.0", "@cloudinary/url-gen@^1.8.6", "@cloudinary/url-gen@^1.8.7":
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/@cloudinary/url-gen/-/url-gen-1.10.1.tgz#b5b49e03252a90bba17038024f206328482eac96"
+  integrity sha512-6pBmapnL7G231NbNWhKbi+08HcpNASci7M3OmZWaUCQWUfdmo3au27HT3Zqg9NMsisfyer3t7o0RXzPQ4XlmMg==
+  dependencies:
+    "@cloudinary/transformation-builder-sdk" "^1.2.7"
+
+"@emoji-mart/react@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@emoji-mart/react/-/react-1.1.1.tgz#ddad52f93a25baf31c5383c3e7e4c6e05554312a"
+  integrity sha512-NMlFNeWgv1//uPsvLxvGQoIerPuVdXwK/EUek8OOkJ6wVOWPUizRBJU0hDqWZCOROVpfBgCemaC3m6jDOXi03g==
+
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz#a23514e8fb9af1269d5f7788aa556798d61c6b59"
@@ -864,6 +896,11 @@ electron-to-chromium@^1.4.284:
   version "1.4.392"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.392.tgz#57ec91fa02393ab32e46df6925ef309642a44680"
   integrity sha512-TXQOMW9tnhIms3jGy/lJctLjICOgyueZFJ1KUtm6DTQ+QpxX3p7ZBwB6syuZ9KBuT5S4XX7bgY1ECPgfxKUdOg==
+
+emoji-mart@^5.5.2:
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/emoji-mart/-/emoji-mart-5.5.2.tgz#3ddbaf053139cf4aa217650078bc1c50ca8381af"
+  integrity sha512-Sqc/nso4cjxhOwWJsp9xkVm8OF5c+mJLZJFoFfzRuKO+yWiN7K8c96xmtughYb0d/fZ8UC6cLIQ/p4BR6Pv3/A==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -2051,6 +2088,15 @@ next-auth@^4.22.1:
     preact "^10.6.3"
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
+
+next-cloudinary@^4.10.1:
+  version "4.10.1"
+  resolved "https://registry.yarnpkg.com/next-cloudinary/-/next-cloudinary-4.10.1.tgz#bfd00920f6b154d99bc4253e290445efd9e74156"
+  integrity sha512-rMJH7ILj478xkjCFQLOfL3cvGJLUkmmjRIZORTK6hCBgXKvX7yZtUPbJd0cnwIzwL4V5ur1g9ZLG8xh8deR26Q==
+  dependencies:
+    "@cloudinary-util/url-loader" "^3.5.1"
+    "@cloudinary-util/util" "^2.0.1"
+    "@cloudinary/url-gen" "^1.8.6"
 
 next@13.4.1:
   version "13.4.1"

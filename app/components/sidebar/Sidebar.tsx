@@ -1,4 +1,4 @@
-import getCurrentUser from "@/app/action/getCurrentUser"
+import getCurrentUser from "@/app/actions/getCurrentUser"
 import { User } from "@prisma/client"
 import DesktopSidebar from "./DesktopSidebar"
 import MobileFooter from "./MobileFooter"

@@ -1,4 +1,5 @@
-import getConversationById from '@/app/action/getConversationById';
+import getConversationById from '@/app/actions/getConversationById';
+import getMessages from '@/app/actions/getMessages';
 import EmptyState from '@/app/components/EmptyState';
 import React from 'react';
 import Body from './components/Body';
@@ -12,7 +13,7 @@ type IParams = {
 
 const ConversationId=async ({ params }: { params: IParams }) => {
     const conversation = await getConversationById(params.conversationId);
-    console.log(conversation);
+    const messages=await getMessages(params.conversationId);
 
     if (!conversation) {
         return (
@@ -24,13 +25,13 @@ const ConversationId=async ({ params }: { params: IParams }) => {
         )
       }
     return(
-        <div className="lg:pl-80 h-full">
-        <div className="h-full flex flex-col">
-          <Header conversation={conversation}  />
-      
-          <Form />
-        </div>
+      <div className="lg:pl-80 h-full">
+      <div className="h-full flex flex-col border-2 ">
+        <Header conversation={conversation} />
+        <Body initialMessages={messages} />
+        <Form />
       </div>
+    </div>
     )
 }
 export default ConversationId;

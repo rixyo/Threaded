@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import getUsers from "../action/getUsers";
+import getUsers from "../actions/getUsers";
 import Sidebar from "../components/sidebar/Sidebar";
 import UserList from "./components/UserList";
 
