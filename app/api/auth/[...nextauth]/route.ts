@@ -30,6 +30,7 @@ export const authOptions:AuthOptions = {
                     where: {
                         email: credentials.email
                     }
+                  
                 })
                 if(!user|| !user.hashedPassword){
                     throw new Error("You are not registered")
