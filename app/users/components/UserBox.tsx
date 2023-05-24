@@ -1,5 +1,6 @@
 "use client"
 import Avatar from '@/app/components/Avatar';
+import LoadingModal from '@/app/components/LoadingModal';
 import { User } from '@prisma/client';
 import axios from 'axios';
 import { useRouter } from "next/navigation";
@@ -18,7 +19,7 @@ const UserBox:React.FC<UserBoxProps> = ({user}) => {
         axios.post('/api/conversations',{
             userId:user.id
         }).then((res)=>{
-            router.push(`/chat/${res.data.id}`)
+            router.push(`/conversations/${res.data.id}`)
             
         }).finally(()=>{
             setLoading(false)
@@ -26,6 +27,8 @@ const UserBox:React.FC<UserBoxProps> = ({user}) => {
 
     },[user,router])
     return (
+      <>
+    {isLoading && <LoadingModal/>}
         <div
         onClick={handleClick}
       
@@ -62,6 +65,7 @@ const UserBox:React.FC<UserBoxProps> = ({user}) => {
           </div>
         </div>
       </div>
+      </>
     )
 }
 export default UserBox;

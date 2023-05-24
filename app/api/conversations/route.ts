@@ -21,11 +21,14 @@ export async function POST(req:Request){
                     name,
                     isGroup,
                     users:{
-                        connect:[
-                            ...members.map((id:string)=>({id})),
-                            {id:currentUser.id}
-                        ],
-
+                        connect: [
+                            ...members.map((member: { value: string }) => ({  
+                              id: member.value 
+                            })),
+                            {
+                              id: currentUser.id
+                            }
+                          ]
 
                     }
 
